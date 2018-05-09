@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
@@ -18,6 +21,10 @@ public class FlappyBird extends ApplicationAdapter {
     private Texture canoTopo;
     private Random numeroRandomico;
     private BitmapFont fonte;
+    private Circle passaroCirculo;
+    private Rectangle retanguloCanoTopo;
+    private Rectangle retanguloCanoBaixo;
+    private ShapeRenderer shape;
 
     //Atributos de configuração
     private Texture fundo;
@@ -41,6 +48,10 @@ public class FlappyBird extends ApplicationAdapter {
 
         batch = new SpriteBatch();
         numeroRandomico = new Random();
+        passaroCirculo = new Circle();
+//        retanguloCanoTopo = new Rectangle();
+//        retanguloCanoBaixo = new Rectangle();
+        shape = new ShapeRenderer();
         fonte = new BitmapFont();
         fonte.setColor(Color.WHITE);
         fonte.getData().setScale(6);
@@ -111,9 +122,37 @@ public class FlappyBird extends ApplicationAdapter {
                 - canoBaixo.getHeight() - espacoEntreCanos / 2 + alturaEntreCanosRandomica);
         batch.draw(passaros[(int) variacao], 120, posicaoInicialVertical);
 
-        fonte.draw(batch, String.valueOf(pontuacao), larguraDispositivo / 2, alturaDispositivo - 50);
+        fonte.draw(batch, String.valueOf(pontuacao), larguraDispositivo / 2,
+                alturaDispositivo - 50);
 
         batch.end();
+
+        passaroCirculo.set(120 + passaros[0].getWidth() / 2,
+                posicaoInicialVertical + passaros[0].getHeight() / 2, passaros[0].getWidth() / 2);
+        retanguloCanoBaixo = new Rectangle(
+                posicaoMovimentoCanoHorizontal,
+                alturaDispositivo / 2 - canoBaixo.getHeight() - espacoEntreCanos / 2 +
+                        alturaEntreCanosRandomica,
+              canoBaixo.getWidth(),
+              canoBaixo.getHeight()
+        );
+
+        retanguloCanoTopo = new Rectangle(
+                posicaoMovimentoCanoHorizontal,
+                alturaDispositivo / 2
+                        + espacoEntreCanos / 2 + alturaEntreCanosRandomica,
+                canoTopo.getWidth(), canoTopo.getHeight()
+        );
+
+        //Desenhar formas
+        shape.begin( ShapeRenderer.ShapeType.Filled );
+        shape.circle( passaroCirculo.x, passaroCirculo.y, passaroCirculo.radius );
+        shape.rect(retanguloCanoBaixo.x,retanguloCanoBaixo.y,retanguloCanoBaixo.width,
+                retanguloCanoBaixo.height);
+        shape.rect(retanguloCanoTopo.x, retanguloCanoTopo.y, retanguloCanoTopo.width,
+                retanguloCanoTopo.height);
+        shape.setColor(Color.RED);
+        shape.end();
 
     }
 
