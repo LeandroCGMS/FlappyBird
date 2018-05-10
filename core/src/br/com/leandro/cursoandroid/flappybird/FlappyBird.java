@@ -147,14 +147,17 @@ public class FlappyBird extends ApplicationAdapter {
                 alturaDispositivo - 50);
 
         if (estadoJogo == 2) {
-            batch.draw(gameOver, larguraDispositivo / 2 - gameOver.getWidth() / 2, alturaDispositivo / 2);
-            mensagem.draw(batch, "Toque para Reiniciar.", larguraDispositivo / 2 - 200, alturaDispositivo / 2 - gameOver.getHeight() / 2);
+            batch.draw(gameOver, larguraDispositivo / 2 - gameOver.getWidth() / 2,
+                    alturaDispositivo / 2);
+            mensagem.draw(batch, "Toque para Reiniciar.", larguraDispositivo / 2 - 200,
+                    alturaDispositivo / 2 - gameOver.getHeight() / 2);
         }
 
         batch.end();
 
         passaroCirculo.set(120 + passaros[0].getWidth() / 2,
-                posicaoInicialVertical + passaros[0].getHeight() / 2, passaros[0].getWidth() / 2);
+                posicaoInicialVertical + passaros[0].getHeight() / 2,
+                passaros[0].getWidth() / 2);
         retanguloCanoBaixo = new Rectangle(
                 posicaoMovimentoCanoHorizontal,
                 alturaDispositivo / 2 - canoBaixo.getHeight() - espacoEntreCanos / 2 +
